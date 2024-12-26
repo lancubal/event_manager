@@ -76,7 +76,7 @@ end
 
 puts 'EventManager initialized.'
 
-contents = CSV.open(
+contents = CSV.read(
   'event_attendees.csv',
   headers: true,
   header_converters: :symbol
@@ -94,12 +94,13 @@ contents.each do |row|
 
   form_letter = erb_template.result(binding)
 
-  save_thank_you_letter(id,form_letter)
+  save_thank_you_letter(id, form_letter)
 
-  put "#{name} #{zipcode} #{phone_number}"
+  puts "#{name} #{zipcode} #{phone_number}"
 end
 
 peak_hours = peak_registration_hours(contents)
-peak_days = peak_registration_days(contents)
 puts "Peak registration hours: #{peak_hours.join(', ')}"
+
+peak_days = peak_registration_days(contents)
 puts "Peak registration days: #{peak_days.join(', ')}"
